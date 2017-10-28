@@ -17,8 +17,9 @@ def download_data(dir, files):
 		filename = os.path.join(dir, name)
 
 		if not os.path.isfile(filename):
-			print "downloading file %s..." % name
-			urllib.urlretrieve(url, filename)
+			print ("downloading file %s..." % name)
+			#urllib.urlretrieve(url, filename)
+			urllib.request.urlretrieve(url, filename)
 
 def read_data(label_url, image_url):
 	with gzip.open(label_url) as flbl:
@@ -63,7 +64,7 @@ def main(args):
 	#check_data_visually(train_img, train_lbl)
 	batch_size = 200
 	if not args.predict:
-		print 'starting training...'
+		print ('starting training...')
 		model = mnist_train_binary(train_img, val_img, train_lbl, val_lbl, batch_size, args.epochs, args.gpu_id)
 		model.save_checkpoint(args.out_file, args.epochs)
 	else:
